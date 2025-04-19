@@ -1,18 +1,13 @@
-// backend/src/config/db.js
 const { Pool } = require('pg');
+require('dotenv').config(); // Загрузка переменных окружения
 
-// Читай переменные окружения вручную, минуя процессора env
-const dbConfig = {
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'school_schedule_db',
-  password: process.env.DB_PASSWORD || '123', 
-  port: parseInt(process.env.DB_PORT) || 5432,
-};
-
-console.log(dbConfig); // Отладочный вывод конфигурации
-
-const pool = new Pool(dbConfig);
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
 
 pool.on('error', (err, client) => {
   console.error('Unexpected error on idle client', err);
