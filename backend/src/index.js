@@ -1,21 +1,27 @@
+// src/index.js
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
 const scheduleRoutes = require('./routes/schedule.routes');
 
-const app = express();
+const createApp = () => {
+  const app = express();
 
-// Middlewares
-app.use(cors());
-app.use(bodyParser.json());
+  app.use(cors());
+  app.use(express.json()); // Новая замена для bodyParser
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/schedule', scheduleRoutes);
+  app.use('/api/auth', authRoutes);
+  app.use('/api/schedule', scheduleRoutes);
 
-// Start the server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+  return app;
+};
+
+if (require.main === module) {
+  const app = createApp();
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+module.exports = createApp;
