@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const scheduleController = require('../controllers/schedule.controller');
 const { checkJwtToken } = require('../middlewares/auth.middleware');
+const { restrictToRole } = require('../middlewares/auth.middleware');
 
 router.get('/', checkJwtToken, scheduleController.getSchedules);
 // src/routes/schedule.routes.js

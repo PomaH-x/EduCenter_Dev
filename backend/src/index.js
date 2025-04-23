@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
 const scheduleRoutes = require('./routes/schedule.routes');
 const { Server } = require("socket.io");
+const logger = require('./logger');
 
 const createApp = () => {
   const app = express();

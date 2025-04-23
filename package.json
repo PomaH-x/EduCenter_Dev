@@ -2,5 +2,8 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "supertest": "^7.1.0"
+  },
+  "dependencies": {
+    "winston": "^3.17.0"
   }
 }
