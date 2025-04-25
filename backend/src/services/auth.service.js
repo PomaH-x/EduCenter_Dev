@@ -9,10 +9,8 @@ exports.validateTelegramSignature = (signature) => {
   return computedHash === signature;
 };
 
-// src/services/auth.service.js
 const jwt = require('jsonwebtoken');
 
-// src/services/auth.service.js
 exports.generateJwtToken = (userId, role) => {
     return jwt.sign({ userId, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
   };
