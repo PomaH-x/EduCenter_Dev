@@ -1,0 +1,45 @@
+/* src/pages/AdminPage.css */
+.admin-container {
+    padding: 20px;
+    color: #00f7ff;
+    background-color: #0a0a0a;
+    min-height: 100vh;
+}
+
+.add-schedule-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #00f7ff;
+    border: none;
+    border-radius: 5px;
+    color: #0a0a0a;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-schedule-button:hover {
+    background-color: #00c6d6;
+}
+
+.admin-table {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.admin-table-header {
+    display: contents;
+    font-weight: bold;
+    border-bottom: 2px solid #00f7ff;
+}
+
+.admin-table-row {
+    display: contents;
+}
+
+.admin-table-row div,
+.admin-table-header div {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+}
