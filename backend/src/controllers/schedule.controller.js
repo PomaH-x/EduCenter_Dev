@@ -1,5 +1,5 @@
 // src/controllers/schedule.controller.js
-const { pool } = require('../config/db');
+const pool = require('../config/db');
 const { emitScheduleUpdatedEvent } = require('../services/websocket.service');
 const logger = require('../logger');
 
@@ -35,14 +35,12 @@ exports.createSchedule = async (req, res) => {
 
 exports.updateSchedule = async (req, res) => {
   const { id } = req.params;
-  const { userId, day, timeStart, timeEnd, cabinet } = req.body;
-
+  const { user_id, day, time_start, time_end, cabinet } = req.body;
   try {
     const result = await pool.query(
       'UPDATE schedules SET user_id = $1, day = $2, time_start = $3, time_end = $4, cabinet = $5 WHERE id = $6 RETURNING *',
-      [userId, day, timeStart, timeEnd, cabinet, id]
+      [user_id, day, time_start, time_end, cabinet, id]
     );
-
     // Отправляем событие через Socket.IO об обновлении расписания
     emitScheduleUpdatedEvent(result.rows[0], 'updated');
 

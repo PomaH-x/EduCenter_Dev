@@ -7,6 +7,14 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Проверяем токен
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/');
+      return; // если токен есть — сразу уходим, скрипт не грузим
+    }
+
+    // Иначе подключаем Telegram Widget
     window.TelegramLoginWidget = {
       dataOnauth: async (user) => {
         try {
@@ -15,7 +23,7 @@ const LoginPage = () => {
             username: user.username,
             signature: user.hash,
           });
-          navigate('/');
+          navigate('/'); // успешный вход
         } catch (error) {
           console.error('Ошибка при авторизации:', error);
           alert('Не удалось войти через Telegram');
@@ -25,10 +33,11 @@ const LoginPage = () => {
 
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-widget.js?22';
-    script.setAttribute('data-telegram-login', 'ТВОЙ_BOT_USERNAME'); // ЗАМЕНИ на username твоего бота
+    script.setAttribute('data-telegram-login', 'EdUcAtIonCeN1Er_bot');
     script.setAttribute('data-size', 'large');
     script.setAttribute('data-userpic', 'false');
     script.setAttribute('data-request-access', 'write');
+    script.setAttribute('data-auth-url', 'http://localhost:3001/api/auth/telegram');
     script.setAttribute('data-onauth', 'TelegramLoginWidget.dataOnauth(user)');
     script.async = true;
     document.getElementById('telegram-button-container').appendChild(script);
